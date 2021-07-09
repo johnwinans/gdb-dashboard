@@ -1943,6 +1943,11 @@ class Registers(Dashboard.Module):
             # Exclude registers with a dot '.' or parse_and_eval() will fail
             if '.' in name:
                 continue
+            if 'dscratch' in name:
+                continue
+            if 'mucounteren' in name:
+                continue
+            # jrw hack fix with qemu 5.0.0
             value = gdb.parse_and_eval('${}'.format(name))
             string_value = Registers.format_value(value)
             changed = self.table and (self.table.get(name, '') != string_value)
